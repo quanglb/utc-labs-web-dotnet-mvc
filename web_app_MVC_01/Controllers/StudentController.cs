@@ -4,7 +4,7 @@ using web_app_MVC_01.Models;
 
 namespace web_app_MVC_01.Controllers;
 
-[Route("admin/student")]
+[Route("Students")]
 public class StudentController : Controller
 {
     private static List<Student> listStudent = new List<Student>();
