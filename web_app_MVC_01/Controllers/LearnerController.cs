@@ -134,7 +134,7 @@ public class LearnerController : Controller
         var learner = db.Learners.Include(l => l.Major)
             .Include(e => e.Enrollments)
             .FirstOrDefault(m => m.LearnerID == id);
-        
+
         if (learner == null)
         {
             return NotFound();
@@ -168,4 +168,25 @@ public class LearnerController : Controller
     }
 
     #endregion
+
+    public IActionResult Index(int? mid)
+    {
+        if (mid == null)
+        {
+            var learners = db.Learners.Include(m => m.MajorID).ToList();
+            return View(learners);
+        }
+        else
+        {
+            var resp = db.Learners.Where(x => x.MajorID == mid).Include(x => x.Major).ToList();
+            return View(resp);
+        }
+    }
+
+    public IActionResult LearnerByMajorID(int mid)
+    {
+        Console.WriteLine("mid: " + mid);
+        var resp = db.Learners.Where(x => x.MajorID == mid).Include(x => x.Major).ToList();
+        return PartialView("LeanerTable", resp);
+    }
 }

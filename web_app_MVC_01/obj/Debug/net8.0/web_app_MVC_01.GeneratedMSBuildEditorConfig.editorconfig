@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = web_app_MVC_01
 build_property.RootNamespace = web_app_MVC_01
@@ -17,6 +25,8 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\Education\UTC\Web_ASP.Net\web_app_MVC_01\web_app_MVC_01
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
 [D:/Education/UTC/Web_ASP.Net/web_app_MVC_01/web_app_MVC_01/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
@@ -44,6 +54,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Education/UTC/Web_ASP.Net/web_app_MVC_01/web_app_MVC_01/Views/Learner/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5lclxpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Education/UTC/Web_ASP.Net/web_app_MVC_01/web_app_MVC_01/Views/Learner/LeanerTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5lclxMZWFuZXJUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Education/UTC/Web_ASP.Net/web_app_MVC_01/web_app_MVC_01/Views/Shared/Components/Major/RenderMajor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWFqb3JcUmVuZGVyTWFqb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Education/UTC/Web_ASP.Net/web_app_MVC_01/web_app_MVC_01/Views/Shared/Components/Render/RenderLeftMenu.cshtml]
