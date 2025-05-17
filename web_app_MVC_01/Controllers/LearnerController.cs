@@ -183,6 +183,7 @@ public class LearnerController : Controller
         }
     }
 
+    [HttpGet("LearnerByMajorID")]
     public IActionResult LearnerByMajorID(int mid)
     {
         Console.WriteLine("mid: " + mid);

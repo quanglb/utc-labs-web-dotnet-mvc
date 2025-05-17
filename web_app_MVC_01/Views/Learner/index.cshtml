@@ -7,8 +7,8 @@
 
 <div class="ms-2 mx-2">
     <h1>Learner List</h1>
+    @await Component.InvokeAsync("Major")
     <div id="content">
-        @await Component.InvokeAsync("Major")
         <table class="table table-striped">
             <thead>
             <tr>
@@ -43,19 +43,28 @@
 
 @section Scripts {
     <script>
-        $(document).on("click", "a.nav-link", function (e) {
-            e.preventDefault();
-            var id = $(this).attr("id");
-            if (!id) return;
-            alert(id);
-            $.ajax({
-                url: "LearnerByMajorID",
-                data: { mid: id },
-                success: function (response) {
-                    $("div#content").html(response);
-                }
-            });
+
+    $(document).on('click', '.nav-link', function (e) {
+        e.preventDefault(); 
+
+        var id = $(this).closest("li").attr("id"); 
+        var data = { mid: id };
+        
+        console.log(id)
+        console.log(data)
+
+        $.ajax({
+            url: "/Learner/LearnerByMajorID",
+            data: data,
+            success: function (response) {
+            console.log(response)
+                $("div#content").html(response);
+            },
+            error: function () {
+                alert("Không thể load dữ liệu!");
+            }
         });
+    });
 
     </script>
 }
