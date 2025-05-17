@@ -17,12 +17,32 @@ public class LearnerController : Controller
 
     #region View
 
-    [Route("List")]
-    public IActionResult Index()
-    {
-        var data = db.Learners.Include(x => x.Major).ToList();
-        return View(data);
-    }
+    // [Route("List")]
+    // public IActionResult Index()
+    // {
+    //     var data = db.Learners.Include(x => x.Major).ToList();
+    //     return View(data);
+    // }
+    
+    // [Route("List")]
+    // public IActionResult Index(int page = 1)
+    // {
+    //     var learners = db.Learners.AsQueryable(); // giữ IQueryable để tối ưu
+    //
+    //     // Tính số trang
+    //     int pageNum = (int)Math.Ceiling(learners.Count() / (float)pageSize);
+    //     ViewBag.pageNum = pageNum;
+    //     ViewBag.page = page; // gửi luôn trang hiện tại nếu muốn highlight
+    //
+    //     // Lấy dữ liệu trang hiện tại
+    //     var result = learners
+    //         .Skip(pageSize * (page - 1))
+    //         .Take(pageSize)
+    //         .Include(x => x.Major)
+    //         .ToList();
+    //
+    //     return View(result);
+    // }
 
     #endregion
 
@@ -169,18 +189,53 @@ public class LearnerController : Controller
 
     #endregion
 
+    private int pageSize = 3;
+    [Route("List")]
     public IActionResult Index(int? mid)
     {
-        if (mid == null)
+        var learners = db.Learners.ToList();
+        
+        if (mid != null)
         {
-            var learners = db.Learners.Include(m => m.MajorID).ToList();
-            return View(learners);
+             learners = db.Learners.Where(x => x.MajorID == mid).Include(x => x.Major).ToList();
         }
-        else
+
+        int pageNum = (int)Math.Ceiling((learners.Count) / (float)pageSize);
+
+        ViewBag.pageNum = pageNum;
+        var resp = learners.Take(pageSize).ToList();
+        
+        return View(resp);
+        
+    }
+    
+    [HttpGet("LearnerFilter")]
+    public IActionResult LearnerFilter(int? mid, string? keyword, int? pageIndex)
+    {
+        //lấy toàn bộ learners trong dbset chuyển về IQuerrable<Learner> để dùng Lingq
+        var learners = (IQueryable<Learner>)db.Learners;
+        //lấy chỉ số trang, nếu chỉ số trang null thì gán ngầm định bằng 1
+        int page = (int)(pageIndex == null || pageIndex <= 0 ? 1 : pageIndex);
+        //nếu có mid thì lọc learner theo mid (chuyên ngành)
+        if (mid != null)
         {
-            var resp = db.Learners.Where(x => x.MajorID == mid).Include(x => x.Major).ToList();
-            return View(resp);
+            learners = learners.Where(l => l.MajorID == mid); //lọc
+            ViewBag.mid = mid; //gửi mid về view để ghi lại trên nav-trang
         }
+        //nếu có keyword thì tìm kiếm theo tên
+        if (!string.IsNullOrEmpty(keyword))
+        {
+            learners = learners.Where(l => l.FirstMidName.ToLower().Contains(keyword.ToLower())); //tìm kiếm
+            ViewBag.keyword = keyword; //gửi keyword về view để ghi lại trên nav-trang
+        }
+        //tính số trang
+        int pageNum = (int)Math.Ceiling(learners.Count() / (float)pageSize);
+        ViewBag.pageNum = pageNum; //gửi số trang về view để hiển thị nav-trang
+        //chọn dữ liệu trong trang hiện tại
+        var result = learners.Skip(pageSize * (page - 1))
+            .Take(pageSize)
+            .Include(m => m.Major).ToList();
+        return PartialView("LearnerTable", result);
     }
 
     [HttpGet("LearnerByMajorID")]
@@ -188,6 +243,6 @@ public class LearnerController : Controller
     {
         Console.WriteLine("mid: " + mid);
         var resp = db.Learners.Where(x => x.MajorID == mid).Include(x => x.Major).ToList();
-        return PartialView("LeanerTable", resp);
+        return PartialView("LearnerTable", resp);
     }
 }
